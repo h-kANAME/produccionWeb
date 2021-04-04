@@ -65,7 +65,7 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
                         }
                         ?>
                     </ul>
-                </form> <!-- Cierre de composicion de filtros -->
+                    <!-- </form> Cierre de composicion de filtros -->
             </div>
         </div>
 
@@ -141,6 +141,7 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
                 }
                 ?>
             </ul>
+            </form>
             <!-- Sub Categorias -->
         </div>
 
