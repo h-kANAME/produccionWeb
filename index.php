@@ -5,7 +5,7 @@
 </head>
 <!-- library -->
 
-<body class="login">
+<body class="login index">
     <main role="main" class="container my-auto">
         <div class="row">
             <div id="login" class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12">

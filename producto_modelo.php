@@ -90,7 +90,7 @@ $fechaActual = getdate();
 					if ($resultado) {
 						foreach ($resultado as $row) {
 
-							if ($row['aprobado'] > 0) {
+							if ($row['aprobado'] > 0 && $id_producto == $row['id_producto']) {
 
 								//$contador = 0;
 								//$contador++;

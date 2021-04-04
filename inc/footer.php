@@ -1,9 +1,9 @@
 <footer class="bg-dark text-white py-3">
-            <div class="text-center">
-                <p> <a href="https://github.com/h-kANAME/tp_web_2.git" target="_blank"><img src="img/Logos_Banners/gitGubLogo.png" width="50" height="50" alt=""></a></p>
-                <p>Repositorio</p>
-                <p></p>
-            </div>
+    <div class="text-center">
+        <p> <a href="https://github.com/h-kANAME/produccionWeb" target="_blank"><img src="img/Logos_Banners/gitGubLogo.png" width="50" height="50" alt=""></a></p>
+        <p>Repositorio</p>
+        <p></p>
+    </div>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
@@ -14,4 +14,5 @@
 </script>
 
 </body>
+
 </html>

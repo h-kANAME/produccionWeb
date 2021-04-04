@@ -48,4 +48,4 @@ echo strpos ($_SERVER['PHP_SELF'] , $item_seleccionado) ? 'active activo' : '';
 		</nav>
 </header>
 
-<body>
+<body class="index">
