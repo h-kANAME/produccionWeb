@@ -1,12 +1,27 @@
 <?php
 $id_producto = $_REQUEST['id_producto'];
-$productos = json_decode(file_get_contents('json/productos.json'), true);
-$producto = $productos[$id_producto];
+include_once('inc/con_db.php');
+$query = "SELECT * FROM productos WHERE id_producto = '$id_producto'";
+$respuesta = $connect->query($query);
+
+if ($respuesta) {
+	foreach ($respuesta as $producto) {
+	$imagenMax = $producto['imagen_max'];
+	$id_marca = $producto['id_marca'];
+	}
+
+$query = "SELECT * FROM marcas WHERE id_marca = '$id_marca' ";
+$respuesta = $connect->query($query);
+if($respuesta){
+	foreach ($respuesta as $rowMarcas){
+		$marca = $rowMarcas['nombre'];
+	}
+}
+
+}
 $titulo = 'KYZ - ' . $producto['modelo'];
 include_once('inc/header.php');
 include_once('fpdf/fpdf.php');
-include_once('inc/con_db.php');
-$marcas = json_decode(file_get_contents('json/marcas.json'), true);
 $fechaActual = getdate();
 ?>
 
@@ -16,12 +31,12 @@ $fechaActual = getdate();
 			<div class="container">
 				<div class="row">
 					<div class="col-8 py-5">
-						<a href=<?php echo $producto["imagenMax"] ?> target="__blank">
-							<img src=<?php echo $producto["imagenMax"] ?> class="card-img-top" alt=""></a>
+						<a href=<?php echo $producto["imagen_max"] ?> target="__blank">
+							<img src=<?php echo $producto["imagen_max"] ?> class="card-img-top" alt=""></a>
 					</div>
 					<div class="col-4 m-auto py-3">
 						<h2 class=""> <strong> <?php echo 'Modelo: ' . '<br>' . $producto["modelo"] ?> </strong> </h2>
-						<h4><?php echo '<br>' . 'Marca: ' . $producto["marca"] ?></h4>
+						<h4><?php echo '<br>' . 'Marca: ' . $marca ?></h4>
 						<h5><?php echo '<br>' . 'Descripcion: ' . '<br>' . $producto["descripcion"] ?></h5>
 						<h4 class="my-5"> ARS: <strong>$<?php echo $producto["precio"] ?> </strong> </h4>
 

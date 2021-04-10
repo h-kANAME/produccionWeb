@@ -1,6 +1,7 @@
 <?php
 $titulo = 'KYZ Technology - Perifericos';
-include_once('inc/header.php');
+include_once ('inc/con_db.php');
+include_once ('inc/header.php');
 ?>
 
 
@@ -15,11 +16,11 @@ include_once('inc/header.php');
 <div class="container">
     <div class="row my-5">
 					<?php
-					include_once('inc/productos.php');
-					$productos = json_decode(file_get_contents('json/productos.json'), true);
+		$query = "SELECT * FROM productos WHERE id_categoria = 3";
+		$resultado = $connect->query($query);
 
-          foreach ($productos as $producto) {
-            if ($producto["id_categoria"] == 3) {
+          foreach ($resultado as $producto) {
+           
               echo "<div class='col'>
 
 						<div class='card' style='width: 17rem;'>
@@ -36,7 +37,7 @@ include_once('inc/header.php');
             </div>
           </div>";
             }
-          }
+          
           ?>
     </div>
   </div>

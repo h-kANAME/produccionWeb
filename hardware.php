@@ -1,9 +1,8 @@
 <?php
 $titulo = 'KYZ Technology - Hardware';
-include_once('inc/header.php');
+include_once ('inc/con_db.php');
+include_once ('inc/header.php');
 ?>
-
-
 
 		<div class="container">
 			<div class="row">
@@ -12,16 +11,16 @@ include_once('inc/header.php');
 				?>
 			</div>
 		</div>
-<!-- CosoOpen -->
+
 <div class="container">
     <div class="row my-5">
 					<?php
-					include_once('inc/productos.php');
-					$productos = json_decode(file_get_contents('json/productos.json'), true);
+          $query = "SELECT * FROM productos WHERE id_categoria = 1";
+          $resultado = $connect->query($query);
 
-          foreach ($productos as $producto) {
-            if ($producto["id_categoria"] == 1) {
-              echo "<div class='col'>
+          foreach ($resultado as $producto) {
+
+              echo "<div class='col -md-3'>
 
 						<div class='card' style='width: 17rem;'>
               <img src='" . $producto["imagen"] . "' class='card-img-top' alt=" . $producto["modelo"] . ">
@@ -37,7 +36,7 @@ include_once('inc/header.php');
 
             </div>
           </div>";
-            }
+
           }
           ?>
     </div>

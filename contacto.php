@@ -1,10 +1,10 @@
 <?php
 $titulo = 'KYZ Technology - Contacto';
-	include_once('inc/header.php');
+include_once('inc/header.php');
 ?><div class="container">
 	<div class="row">
 		<div class="col 12">
-			<h1 class="text-dark py-4">Contacto</h1>
+			<h1 class="py-4 text-white">Contacto</h1>
 		</div>
 	</div>
 </div>
@@ -13,10 +13,7 @@ $titulo = 'KYZ Technology - Contacto';
 	<div class="row">
 		<div class="col -md-9">
 			<div class="card embed-responsive embed-responsive-16by9">
-				<iframe
-					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8600.05626199281!2d-58.407958880399335!3d-34.6039793409523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccaea670d4e67%3A0x2198c954311ad6d9!2sDa%20Vinci!5e0!3m2!1ses-419!2sar!4v1601010012241!5m2!1ses-419!2sar"
-					width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-					tabindex="0"></iframe>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8600.05626199281!2d-58.407958880399335!3d-34.6039793409523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccaea670d4e67%3A0x2198c954311ad6d9!2sDa%20Vinci!5e0!3m2!1ses-419!2sar!4v1601010012241!5m2!1ses-419!2sar" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 			</div>
 		</div>
 	</div>
@@ -26,7 +23,7 @@ $titulo = 'KYZ Technology - Contacto';
 <div class="container">
 	<div class="row">
 		<div class="col 12">
-			<h3 class="w-responsive mx-auto my-3">Contáctenos</h3>
+			<h3 class="w-responsive mx-auto my-3 text-white">Contáctenos</h3>
 		</div>
 	</div>
 </div>
@@ -59,8 +56,7 @@ $titulo = 'KYZ Technology - Contacto';
 
 				</div>
 				<div class="form-group">
-					<textarea placeholder="Escribe Mensaje" class="form-control" name="mensaje" id="mensaje" cols="30"
-						rows="5"></textarea>
+					<textarea placeholder="Escribe Mensaje" class="form-control text-white" name="mensaje" id="mensaje" cols="30" rows="5"></textarea>
 				</div>
 				<div class="form-group">
 					<input type="file" id="archivo" name="archivo">
@@ -76,7 +72,7 @@ $titulo = 'KYZ Technology - Contacto';
 </div>
 </div>
 <?php
-	include_once('inc/footer.php');
+include_once('inc/footer.php');
 ?>
 
 </html>

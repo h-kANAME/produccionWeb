@@ -1,16 +1,23 @@
 <?php
 include_once ('fpdf/fpdf.php');
+include_once ('inc/con_db.php');
 $id_producto = $_REQUEST['id_producto'];
-$productos = json_decode(file_get_contents('json/productos.json') , true);
-$imprimir = $productos[$id_producto];
 
+$query = "SELECT * FROM productos WHERE destacado = 'true'";
+$resultado = $connect->query($query);
 
+foreach ($resultado as $productos){
+	$modelo = $productos['modelo'];
+	$marca = 'Coso';
+	$descripcion = $productos['descripcion'];
+	$imagen = $productos['imagen'];
+}
+echo $modelo . '<br>';
+echo $marca . '<br>';
+echo $descripcion . '<br>';
+echo '<img src="'.$imagen. '"></a>' . '<br>';
 
-//print_r($a_imprimir);
-
-foreach ($productos as $producto){
-
-	if($productos = $imprimir){
+	if(!$connect){
 
 		$pdf = new FPDF();
 		$pdf->AliasNbPages();
@@ -22,17 +29,14 @@ foreach ($productos as $producto){
 
 		$pdf->Cell(0,10,'Ficha tecnica');
 		$pdf->Ln(20);
-		$pdf->Cell(0,10,'Modelo del producto: '. $imprimir['modelo']);
+		$pdf->Cell(0,10,'Modelo del producto: '. $modelo);
 		$pdf->Ln(20);
-		$pdf->Cell(0,10,'Marca del producto: '. $imprimir['marca']);
+		$pdf->Cell(0,10,'Marca del producto: '. $marca);
 		$pdf->Ln(20);
-		$pdf->MultiCell(0,10,'Caracteristicas del producto: '. $imprimir['descripcion']);
+		$pdf->MultiCell(0,10,'Caracteristicas del producto: '. $descripcion);
 		$pdf->Ln(20);
-		$pdf->Image ($imprimir['imagenMax']);
+		$pdf->Image ($imagen);
 
 		$pdf -> Output();
 	}
-
-}
-
 ?>

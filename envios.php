@@ -25,7 +25,7 @@ $mail->Port = 587;
 $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth= true;
 $mail->Username = "luis.lopez@davinci.edu.ar";
-$mail->Password = ':)';
+$mail->Password = 'apk38etCCC';
 $mail->SetFrom('luis.lopez@davinci.edu.ar', 'Emmanuel Lopez');
 $mail->addAddress($_POST["correo"]); //Remitente
 //$mail->addBCC('luis.lopez@davinci.edu.ar'); // cco

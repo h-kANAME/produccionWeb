@@ -1,13 +1,13 @@
 <?php
 $titulo = 'KYZ Technology - Inicio';
 require_once('inc/header.php');
-require_once('inc/productos.php');
-require_once('inc/marcas.php');
-require_once('inc/categorias.php');
-require_once('inc/sub_categorias.php');
-$categorias = json_decode(file_get_contents('json/categorias.json'), true);
-$sub_categorias = json_decode(file_get_contents('json/sub_categorias.json'), true);
-$productos = json_decode(file_get_contents('json/productos.json'), true);
+//require_once('inc/marcas.php');
+//require_once('inc/categorias.php');
+//require_once('inc/sub_categorias.php');
+include_once('inc/con_db.php');
+//$categorias = json_decode(file_get_contents('json/categorias.json'), true);
+//$sub_categorias = json_decode(file_get_contents('json/sub_categorias.json'), true);
+//$productos = json_decode(file_get_contents('json/productos.json'), true);
 ?>
 
 <div class="container">
@@ -23,126 +23,143 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
 <div class="container">
     <div class="row">
         <div class="col-md-4">
+            <?php
+            if (isset($_REQUEST['id_marca']))
+                $id_marca = $_REQUEST['id_marca'];
+            else $id_marca = array();
+
+            if (isset($_REQUEST['id_categoria']))
+                $id_categoria = $_REQUEST['id_categoria'];
+            else $id_categoria = array();
+
+            if (isset($_REQUEST['id_marca'])) $id_marca = $_REQUEST['id_marca'];
+            else $id_marca = array();
+            ?>
+
             <div class="card text-center">
-                <div class="btn btn-dark">
-                    <h5 class="mb-0">Marcas</h5>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Marcas
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <form class="dropdown" action="" method="GET">
+                        <!-- Marcas -->
+                        <ul class="list-group">
+                            <?php
+                            $query = "SELECT * FROM marcas";
+                            $respuesta = $connect->query($query);
+
+                            foreach ($respuesta as $marcasArray) {
+
+                                if (in_array($marcasArray['id_marca'], $id_marca)) {
+                                    $checkar = 'checked="chequed"';
+                                } else $checkar = '';
+                            ?>
+                                <li class="dropdown-item">
+                                    <div class="custom-control custom-checkbox">
+                                        <p> <?php
+                                            echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_marca[]" value = "' . $marcasArray['id_marca'] . '"' . $checkar . '>' . $marcasArray['nombre'];
+                                            ?></p>
+                                    </div>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                        </ul>
                 </div>
+                <!-- </form> Cierre de composicion de filtros -->
+            </div>
+        </div>
 
-                <?php
+        <!-- Categorias -->
+        <?php
+        if (isset($_REQUEST['id_categoria']))
+            $id_categoria = $_REQUEST['id_categoria'];
+        else $id_categoria = array();
 
-                if (isset($_REQUEST['id_marca']))
-                    $id_marca = $_REQUEST['id_marca'];
-                else $id_marca = array();
+        if (isset($_REQUEST['id_categoria']))
+            $id_categoria = $_REQUEST['id_categoria'];
+        else $id_categoria = array();
 
-                if (isset($_REQUEST['id_categoria']))
-                    $id_categoria = $_REQUEST['id_categoria'];
-                else $id_categoria = array();
+        if (isset($_REQUEST['id_categoria'])) $id_categoria = $_REQUEST['id_categoria'];
+        else $id_categoria = array();
 
-                if (isset($_REQUEST['id_marca'])) $id_marca = $_REQUEST['id_marca'];
-                else $id_marca = array();
-                $marcas = json_decode(file_get_contents('json/marcas.json'), true);
+        $query = "SELECT * FROM categorias";
+        $respuesta = $connect->query($query);
+        ?>
 
-                ?>
-
-                <form action="" method="GET">
-                    <!-- Marcas -->
+        <div class="col -md-4">
+            <div class="card text-center">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categorias
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <ul class="list-group">
                         <?php
-                        foreach ($marcas as $marcasArray) {
-
-                            if (in_array($marcasArray['id_marca'], $id_marca)) {
+                        foreach ($respuesta as $categoriasArray) {
+                            if (in_array($categoriasArray['id_categoria'], $id_categoria)) {
                                 $checkar = 'checked="chequed"';
                             } else $checkar = '';
                         ?>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div class="custom-control custom-checkbox">
-                                    <?php
-                                    echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_marca[]" value = "' . $marcasArray['id_marca'] . '"' . $checkar . '>' . $marcasArray['nombre'];
-                                    ?>
-                                </div>
+                            <li class="dropdown-item">
+                                <?php
+                                echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_categoria[]" value = "' . $categoriasArray['id_categoria'] . '"' . $checkar . '>' . $categoriasArray['nombre'];
+                                ?>
                             </li>
                         <?php
                         }
                         ?>
-                    </ul>
-                    <!-- </form> Cierre de composicion de filtros -->
+                    </ul> <!-- Cierro categorias -->
+                </div>
             </div>
         </div>
 
-        <div class="col -md-4">
-            <!-- Categorias -->
-            <?php
-            if (isset($_REQUEST['id_categoria']))
-                $id_categoria = $_REQUEST['id_categoria'];
-            else $id_categoria = array();
+        <!-- Sub Categorias -->
+        <?php
+        if (isset($_REQUEST['id_sub_categoria']))
+            $id_sub_categoria = $_REQUEST['id_sub_categoria'];
+        else $id_sub_categoria = array();
 
-            if (isset($_REQUEST['id_categoria']))
-                $id_categoria = $_REQUEST['id_categoria'];
-            else $id_categoria = array();
+        if (isset($_REQUEST['id_sub_categoria'])) $id_sub_categoria = $_REQUEST['id_sub_categoria'];
+        else $id_sub_categoria = array();
 
-            if (isset($_REQUEST['id_categoria'])) $id_categoria = $_REQUEST['id_categoria'];
-            else $id_categoria = array();
-            ?>
+        $query = "SELECT * FROM sub_categorias";
+        $respuesta = $connect->query($query);
 
-            <ul class="list-group">
-                <div class="btn btn-dark">
-                    <h5 class="mb-2">Categorias</h5>
-                </div>
-                <?php
-                foreach ($categorias as $categoriasArray) {
-
-                    if (in_array($categoriasArray['id_categoria'], $id_categoria)) {
-                        $checkar = 'checked="chequed"';
-                    } else $checkar = '';
-                ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="custom-control custom-checkbox">
-                            <?php
-                            echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_categoria[]" value = "' . $categoriasArray['id_categoria'] . '"' . $checkar . '>' . $categoriasArray['nombre'];
-                            ?>
-                        </div>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul> <!-- Cierro categorias -->
-        </div>
+        ?>
 
         <div class="col -md-4">
-            <!-- Sub Categorias -->
-            <?php
-            if (isset($_REQUEST['id_sub_categoria']))
-                $id_sub_categoria = $_REQUEST['id_sub_categoria'];
-            else $id_sub_categoria = array();
+            <div class="card text-center">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Condicion
+                </button>
 
-            if (isset($_REQUEST['id_sub_categoria'])) $id_sub_categoria = $_REQUEST['id_sub_categoria'];
-            else $id_sub_categoria = array();
-            ?>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul class="list-group">
+                        <?php
+                        foreach ($respuesta as $sub_categoriasArray) {
 
-            <ul class="list-group">
-                <div class="btn btn-dark">
-                    <h5 class="mb-2">Sub Categorias</h5>
+                            if (in_array($sub_categoriasArray['id_sub_categoria'], $id_sub_categoria)) {
+                                $checkar = 'checked="chequed"';
+                            } else $checkar = '';
+                            if ($sub_categoriasArray > 1) {
+                        ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <?php
+                                        echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_sub_categoria[]" value = "' . $sub_categoriasArray['id_sub_categoria'] . '"' . $checkar . '>' . $sub_categoriasArray['nombre'];
+                                        ?>
+                                    </div>
+                                </li>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </ul>
                 </div>
-                <?php
-                foreach ($sub_categorias as $sub_categoriasArray) {
-
-                    if (in_array($sub_categoriasArray['id_sub_categoria'], $id_sub_categoria)) {
-                        $checkar = 'checked="chequed"';
-                    } else $checkar = '';
-                ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="custom-control custom-checkbox">
-                            <?php
-                            echo '<input type="checkbox" class="form-check-input type="checkbox" onChange="this.form.submit()" name="id_sub_categoria[]" value = "' . $sub_categoriasArray['id_sub_categoria'] . '"' . $checkar . '>' . $sub_categoriasArray['nombre'];
-                            ?>
-                        </div>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-            </form>
-            <!-- Sub Categorias -->
+                </form>
+                <!-- Sub Categorias -->
+            </div>
         </div>
 
     </div> <!-- Cierro la row de los filtros -->
@@ -159,18 +176,21 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
             <div class="card-deck">
 
                 <?php
-                foreach ($productos as $producto) {
-                    if ($producto["destacado"]) {
+                $query = "SELECT * FROM productos WHERE destacado = 'true'";
+                $resultado = $connect->query($query);
+
+                foreach ($resultado as $row) {
+                    if ($row["destacado"]) {
                 ?>
 
                         <div class="card">
-                            <img src="<?php echo $producto["imagen"] ?>" class="card-img-top" alt="..." style="width: 5rem;">
+                            <img src="<?php echo $row["imagen"] ?>" class="card-img-top" alt="..." style="width: 5rem;">
 
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $producto['modelo'] ?></h5>
-                                <p class="card-text"><?php echo 'ARS ' . $producto['precio'] ?></p>
+                                <h5 class="card-title"><?php echo $row['modelo'] ?></h5>
+                                <p class="card-text"><?php echo 'ARS ' . $row['precio'] ?></p>
                             </div>
-                            <a href="producto_modelo.php?id_producto=<?php echo $producto["id_producto"] ?>" class="btn btn-primary">Detalles</a>
+                            <a href="producto_modelo.php?id_producto=<?php echo $row["id_producto"] ?>" class="btn btn-primary">Detalles</a>
                         </div>
 
                     <?php } ?>
@@ -185,10 +205,12 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
 
 
 <div class="container my-5">
-
     <div class="row">
         <?php
-        foreach ($productos as $a_producto) {
+        $query = "SELECT * FROM productos";
+        $resultado = $connect->query($query);
+
+        foreach ($resultado as $a_producto) {
             if ((in_array($a_producto['id_marca'], $id_marca) || empty($id_marca)) &&
                 ((in_array($a_producto['id_categoria'], $id_categoria) || empty($id_categoria)) &&
                     ((in_array($a_producto['id_sub_categoria'], $id_sub_categoria) || empty($id_sub_categoria))))
@@ -216,6 +238,7 @@ $productos = json_decode(file_get_contents('json/productos.json'), true);
             }
         }
         ?>
+    </div>
     </div>
 </div>
 
