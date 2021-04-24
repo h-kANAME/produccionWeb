@@ -7,9 +7,10 @@
     }
 
    if ($connect){
-
     }else{
         echo "Base de datos ;(";
     }
 
     ?>
+
+ 

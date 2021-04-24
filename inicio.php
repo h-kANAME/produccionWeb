@@ -1,13 +1,7 @@
 <?php
 $titulo = 'KYZ Technology - Inicio';
 require_once('inc/header.php');
-//require_once('inc/marcas.php');
-//require_once('inc/categorias.php');
-//require_once('inc/sub_categorias.php');
 include_once('inc/con_db.php');
-//$categorias = json_decode(file_get_contents('json/categorias.json'), true);
-//$sub_categorias = json_decode(file_get_contents('json/sub_categorias.json'), true);
-//$productos = json_decode(file_get_contents('json/productos.json'), true);
 ?>
 
 <div class="container">
@@ -46,7 +40,7 @@ include_once('inc/con_db.php');
                         <!-- Marcas -->
                         <ul class="list-group">
                             <?php
-                            $query = "SELECT * FROM marcas";
+                            $query = "SELECT * FROM marcas WHERE estado_activo = 1";
                             $respuesta = $connect->query($query);
 
                             foreach ($respuesta as $marcasArray) {
@@ -84,7 +78,7 @@ include_once('inc/con_db.php');
         if (isset($_REQUEST['id_categoria'])) $id_categoria = $_REQUEST['id_categoria'];
         else $id_categoria = array();
 
-        $query = "SELECT * FROM categorias";
+        $query = "SELECT * FROM categorias WHERE estado_activo = 1";
         $respuesta = $connect->query($query);
         ?>
 
@@ -176,10 +170,10 @@ include_once('inc/con_db.php');
             <div class="card-deck">
 
                 <?php
-                $query = "SELECT * FROM productos WHERE destacado = 'true'";
-                $resultado = $connect->query($query);
+                $query = "SELECT * FROM productos WHERE destacado = 'true' AND estado_activo = 1";
+                $resultadoProducto = $connect->query($query);
 
-                foreach ($resultado as $row) {
+                foreach ($resultadoProducto as $row) {
                     if ($row["destacado"]) {
                 ?>
 
@@ -206,8 +200,26 @@ include_once('inc/con_db.php');
 
 <div class="container my-5">
     <div class="row">
+        <div class="col">
+
+            <a href="inicio.php?columna=nombre&tipo=asc"><img src="img/Logos_Banners/orderAZ.jpg" alt="rowOrder" width="50" height="50"></a>
+                        <span style="margin-left: 10px;"></span>
+            <a href="inicio.php?columna=nombre&tipo=desc"><img src="img/Logos_Banners/orderZA.jpg" alt="rowOrder" width="50" height="50"></a>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
         <?php
-        $query = "SELECT * FROM productos";
+        $orderBy = '';
+
+        if (isset($_REQUEST['columna'])) {
+            $orderBy = $_REQUEST['tipo'];
+        }
+
+        $query = "SELECT * FROM productos WHERE estado_activo = 1 ORDER BY modelo $orderBy";
         $resultado = $connect->query($query);
 
         foreach ($resultado as $a_producto) {
@@ -239,7 +251,7 @@ include_once('inc/con_db.php');
         }
         ?>
     </div>
-    </div>
+</div>
 </div>
 
 </div>

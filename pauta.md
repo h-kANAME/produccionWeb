@@ -7,9 +7,9 @@ Home:
 Página principal del sitio, en donde se mostrarán en forma aleatorios 6 productos que fueron indicados como destacados. ✔
 
 Listado de productos.
-1) Página donde se muestra el listado de los productos, los cuales pueden estar catalogados por categorías, subcategorías y marcas. "?"
+1) Página donde se muestra el listado de los productos, los cuales pueden estar catalogados por categorías, subcategorías y marcas. ✔
 
-2) Al tener la opción de categorías y subcategorías se debe poder ver un menú con las categorías principales y al seleccionarlas se van viendo las 	  subcategorías.
+2) Al tener la opción de categorías y subcategorías se debe poder ver un menú con las categorías principales y al seleccionarlas se van viendo las 	  subcategorías. ✔
 
 3) Al mismo tiempo que se va cambiando entre categorías se debe actualizar el listado de productos basados en las categorías, mostrando primero  	los destacados y luego los demás. ✔
 

@@ -9,25 +9,31 @@ $query = "SELECT * FROM usuarios where usuario = '$usuario' and clave = '$clave'
 $resultado = $connect->query($query);
 
 foreach ($resultado as $rows) {
+    $permiso = $rows['permiso'];
 }
 
-if ($rows['usuario'] == $usuario) {
-    header("location:../index2.php");
+if ($rows) {
+
+    if ($rows['permiso'] == 0) {
+        header("location:../adm/vistaAdministrador.php");
+    } else if ($rows['permiso'] == 2) {
+        header("location:../inicio.php");
+    }
 } else {
-    //include ('../index.php');
+
 ?>
     <html>
     </head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles.css">
     </head>
 
-    <body class="login">
+    <body class="index">
         <main role="main" class="container my-auto">
             <div class="row">
                 <div id="login" class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12">
                     <div class="my-5">
-                        <a href="index2.php"><img class="card-img-top" src="../img/Logos_Banners/logoKYZ.png" alt="" width="" height=""></a>
+                        <a href="inicio.php"><img class="card-img-top" src="../img/Logos_Banners/logoKYZ.png" alt="" width="" height=""></a>
                         <div class="my-15"></div>
                         <form action="inc/validacion.php" method="post" class="my-5">
                             <p><input type="text" class="form-control" placeholder="Usuario" name="usuario"></p>
@@ -56,4 +62,5 @@ if ($rows['usuario'] == $usuario) {
 <?php
 }
 ?>
-</html>
+
+    </html>
