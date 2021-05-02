@@ -9,15 +9,15 @@ Página principal del sitio, en donde se mostrarán en forma aleatorios 6 produc
 Listado de productos.
 1) Página donde se muestra el listado de los productos, los cuales pueden estar catalogados por categorías, subcategorías y marcas. ✔
 
-2) Al tener la opción de categorías y subcategorías se debe poder ver un menú con las categorías principales y al seleccionarlas se van viendo las 	  subcategorías. ✔
+2) Al tener la opción de categorías y subcategorías se debe poder ver un menú con las categorías principales y al seleccionarlas se van viendo las subcategorías. ✔
 
-3) Al mismo tiempo que se va cambiando entre categorías se debe actualizar el listado de productos basados en las categorías, mostrando primero  	los destacados y luego los demás. ✔
+3) Al mismo tiempo que se va cambiando entre categorías se debe actualizar el listado de productos basados en las categorías, mostrando primero los destacados y luego los demás. ✔
 
 4) También se debe tener la opción de elegir el método de ordenamiento de los productos, dichos ordenamientos pueden ser:
 	Destacados
 	A->Z
 	Z->A
-	No se podrán mostrar los productos que estén inactivos o la marca y categoría también lo estén.
+	No se podrán mostrar los productos que estén inactivos o la marca y categoría también lo estén. ✔
 
 
 Detalle del producto
@@ -39,4 +39,4 @@ Contáctenos
 	Teléfono
 	Área de la empresa a quien se quiere mandar la consulta, dependiendo del área se enviá una copia de la información a un mail especifico.
 
-Para contar las row de una consulta : $variable = $resultado <> rouwCount();
+05/05: Entrega TP_1

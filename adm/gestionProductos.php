@@ -1,7 +1,10 @@
 <?php
+$titulo = 'Administrador de Productos';
 include_once('../inc/con_db.php');
 include_once('inc/header.php');
 $id_producto = $_REQUEST['productoID'];
+
+echo $id_producto;
 
 $query = "SELECT * FROM productos WHERE id_producto = $id_producto";
 $request = $connect->query($query);
@@ -24,9 +27,9 @@ if (isset($producto['estado_activo']) && $producto['estado_activo'] == 1) {
 }
 ?>
 
-<div class="text-center">
-    <div class="">
-        <div class="">
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
             <img src="../img/Logos_Banners/masterProductos.png" alt="">
         </div>
     </div>
@@ -34,7 +37,6 @@ if (isset($producto['estado_activo']) && $producto['estado_activo'] == 1) {
 
 <div class="container">
     <div class="row">
-
         <div class="col-md-12 text-white">
             <form class="my-3 table-bordered border-primary" action="" method="post">
                 <h3 class="card-title col mb-3 text-center">Modificar Campos</h3>
@@ -65,12 +67,11 @@ if (isset($producto['estado_activo']) && $producto['estado_activo'] == 1) {
 
                 <div class="col mb-3">
                     <button class="btn btn-success text-white">Modificar</button>
+                    <td><button class="btn btn-success" name="productoID" value="<?php echo $producto['id_producto'] ?>" type="submit">Administrar</button></td>
                 </div>
+
             </form>
         </div>
-
-        <!-- <div class="col-md-2"></div> -->
-
     </div>
 </div>
 
@@ -118,4 +119,57 @@ if (isset($producto['estado_activo']) && $producto['estado_activo'] == 1) {
 
     </div>
 </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-white">
+            <form class="my-3 table-bordered border-primary" action="" method="post">
+                <h3 class="card-title col mb-3 text-center">Alta producto</h3>
+                <div class="col mb-3">
+                    <label class="form-label">Nombre del produccto</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Descripcion del producto</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Editar Precio</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Precio Producto</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Seleccionar Marca</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Seleccionar Categoria</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Seleccionar sub Categoria</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <label class="form-label">Deseo dar de alta el producto en estado..</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="col mb-3">
+                    <button class="btn btn-success text-white">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

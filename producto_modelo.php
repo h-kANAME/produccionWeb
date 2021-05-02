@@ -1,23 +1,23 @@
 <?php
 $id_producto = $_REQUEST['id_producto'];
 include_once('inc/con_db.php');
+
 $query = "SELECT * FROM productos WHERE id_producto = '$id_producto'";
 $respuesta = $connect->query($query);
 
 if ($respuesta) {
 	foreach ($respuesta as $producto) {
-	$imagenMax = $producto['imagen_max'];
-	$id_marca = $producto['id_marca'];
+		$imagenMax = $producto['imagen_max'];
+		$id_marca = $producto['id_marca'];
 	}
 
-$query = "SELECT * FROM marcas WHERE id_marca = '$id_marca' ";
-$respuesta = $connect->query($query);
-if($respuesta){
-	foreach ($respuesta as $rowMarcas){
-		$marca = $rowMarcas['nombre'];
+	$query = "SELECT * FROM marcas WHERE id_marca = '$id_marca' ";
+	$respuesta = $connect->query($query);
+	if ($respuesta) {
+		foreach ($respuesta as $rowMarcas) {
+			$marca = $rowMarcas['nombre'];
+		}
 	}
-}
-
 }
 $titulo = 'KYZ - ' . $producto['modelo'];
 include_once('inc/header.php');
@@ -31,7 +31,7 @@ $fechaActual = getdate();
 			<div class="container">
 				<div class="row">
 					<div class="col-8 py-5">
-						<a href=<?php echo $producto["imagen_max"] ?> target="__blank">
+						<a href=<?php echo $producto["imagen_max"] ?> target="_blank">
 							<img src=<?php echo $producto["imagen_max"] ?> class="card-img-top" alt=""></a>
 					</div>
 					<div class="col-4 m-auto py-3">
@@ -74,23 +74,35 @@ $fechaActual = getdate();
 
 			<?php
 			if (isset($_REQUEST['email']) && isset($_REQUEST['descripcion']) && isset($_REQUEST['califaicacion'])) {
-				$fecha = date('Y-m-d H:i:s');
+				$fecha = date('Y-m-d');
 				date_default_timezone_set('America/Argentina/Buenos_Aires');
 				$email = $_REQUEST['email'];
 				$comentario = $_REQUEST['descripcion'];
 				$califaicacion = $_REQUEST['califaicacion'];
+				$ipActual = 124; //$_SERVER['REMOTE_ADDR'];
 				$estado = 0;
 
-				$sql = "INSERT INTO comentarios (id_comentario, fecha, id_producto, descripcion, calificacion, email, aprobado) VALUES (NULL, '$fecha', '$id_producto', '$comentario', '$califaicacion', '$email', '$estado');";
+				$query = "SELECT * FROM comentarios WHERE ip = '$ipActual' AND fecha = '$fecha'";
+				$consulta = $connect->query($query);
 
+				foreach ($consulta as $row) {
+				}
 
-				$submit = $connect->exec($sql);
-
-				if ($submit) {
-					echo '<br>';
-					echo $fecha;
+				if (isset($row)) {
+					echo 'Usted no puede realizar mas de un comentario por dia';
 				} else {
-					echo 'Rompe';
+
+					$sql = "INSERT INTO comentarios (id_comentario, fecha, ip, id_producto, descripcion, calificacion, email, aprobado) VALUES (NULL, '$fecha', $ipActual, '$id_producto', '$comentario', '$califaicacion', '$email', '$estado');";
+					$submit = $connect->exec($sql);
+
+					echo 'Comentario enviado, aguarda aprobacion del administrador';
+
+					if ($submit) {
+						echo '<br>';
+						echo $fecha;
+					} else {
+						echo 'Rompe';
+					}
 				}
 			}
 			?>
@@ -106,10 +118,6 @@ $fechaActual = getdate();
 						foreach ($resultado as $row) {
 
 							if ($row['aprobado'] > 0 && $id_producto == $row['id_producto']) {
-
-								//$contador = 0;
-								//$contador++;
-								//if ($contador == 4) break;
 
 								$comentarioF = $row["calificacion"];
 								if ($comentarioF == 1) {

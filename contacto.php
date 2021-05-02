@@ -1,10 +1,17 @@
 <?php
 $titulo = 'KYZ Technology - Contacto';
+include_once('inc/con_db.php');
 include_once('inc/header.php');
-?><div class="container">
+
+$query = "SELECT * FROM contacto";
+$respuesta = $connect->query($query);
+
+?>
+
+<div class="container">
 	<div class="row">
 		<div class="col 12">
-			<h1 class="py-4 text-white">Contacto</h1>
+			<h1 class="text-white py-4">Contacto</h1>
 		</div>
 	</div>
 </div>
@@ -49,14 +56,16 @@ include_once('inc/header.php');
 
 					<select name="area" class="mdb-select md-form">
 						<option value="0" selected>Área que desea contactar</option> <!-- fixed eliminando "disabled" -->
-						<option value="1">Soporte Técnico</option>
-						<option value="2">Ventas</option>
-						<option value="3">Otros</option>
+						<?php
+						foreach ($respuesta as $contactos) {
+							echo '<option value="' . $contactos['id_sector'] . '">' . $contactos['nombre_sector'] . '</option>';
+						}
+						?>
 					</select>
 
 				</div>
 				<div class="form-group">
-					<textarea placeholder="Escribe Mensaje" class="form-control text-white" name="mensaje" id="mensaje" cols="30" rows="5"></textarea>
+					<textarea placeholder="Escribe Mensaje" class="form-control" name="mensaje" id="mensaje" cols="30" rows="5"></textarea>
 				</div>
 				<div class="form-group">
 					<input type="file" id="archivo" name="archivo">
